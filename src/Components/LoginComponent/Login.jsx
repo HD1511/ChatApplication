@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 
-import { Toaster, toast } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 import axios from 'axios';
 
 import "primereact/resources/themes/lara-light-indigo/theme.css";
@@ -9,6 +9,8 @@ import "primereact/resources/primereact.min.css";
 import 'primeicons/primeicons.css';
 
 import { Button } from 'primereact/button';
+import { ToastSuccess, ToastFailed } from '../../utils/toast.js';
+import { logIn } from '../../api/apiHandler.js';
 
 import { UserContext } from '../App/App.jsx';
 import '../LoginComponent/Login.css';
@@ -21,41 +23,18 @@ const Login = () => {
 
     useEffect(() => {
         if (isSignUp) {
-            toast.success("Sign up successfully!!!", {
-                style: {
-                    borderRadius: '10px',
-                    background: '#333',
-                    color: '#fff',
-                },
-            });
+            ToastSuccess("Sign up successfully!!!");
             setIsSignUp(false);
         }
     }, []);
 
     const signInSubmit = async () => {
-        const { data } = await axios.post(`${import.meta.env.VITE_BACKEND_URI}/api/login`, {
-            Email,
-            Password
-        }, { withCredentials: true, headers: { Accept: 'application/json' } });
+        const { data } = await logIn(Email,Password);
 
         if (data.Status === 'Not Found') {
-            toast.error('Data Not Found!',
-                {
-                    style: {
-                        borderRadius: '10px',
-                        background: '#333',
-                        color: '#fff',
-                    },
-                }
-            );
+            ToastFailed('Data Not Found!');
         } else if (data.Status === 'Failed') {
-            toast.error("Invalid credentials!!!", {
-                style: {
-                    borderRadius: '10px',
-                    background: '#333',
-                    color: '#fff',
-                },
-            });
+            ToastFailed("Invalid credentials!!!");
         } else {
             setIsLogIn(true);
             navigate('/Dashboard');

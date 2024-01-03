@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 
-import { Toaster, toast } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 import axios from 'axios';
 
 import "primereact/resources/themes/lara-light-indigo/theme.css";
@@ -11,6 +11,8 @@ import 'primeicons/primeicons.css';
 import { Button } from 'primereact/button';
 
 import { UserContext } from '../App/App.jsx';
+import { ToastSuccess, ToastFailed } from '../../utils/toast.js';
+import { signUp } from '../../api/apiHandler.js';
 import '../SignUpComponent/SignUp.css';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -44,42 +46,21 @@ const SignUp = () => {
   const signUpSubmit = async () => {
 
     if (!validator.isEmail(Email)) {
-      toast.error("Enter a valid email!!!", {
-        style: {
-          borderRadius: '10px',
-          background: '#333',
-          color: '#fff',
-        },
-      });
+      ToastFailed("Enter a valid email!!!");
       return;
     }
+
     if (!validator.isStrongPassword(Password)) {
-      toast.error("Enter a valid password!!!", {
-        style: {
-          borderRadius: '10px',
-          background: '#333',
-          color: '#fff',
-        },
-      });
+      ToastFailed("Enter a valid password!!!");
       return;
     }
 
     try {
 
-      const { data } = await axios.post(`${import.meta.env.VITE_BACKEND_URI}/api/signUp`, {
-        Email,
-        Username,
-        Password,
-        Avatar: SelectValue.split('/')[3]
-      })
+      const { data } = await signUp(Email,Username,Password,SelectValue.split('/')[3]);
+
       if (data.Status === 'Failed') {
-        toast.error("User already present!!!", {
-          style: {
-            borderRadius: '10px',
-            background: '#333',
-            color: '#fff',
-          },
-        });
+        ToastFailed("User already present!!!");
       } else {
         setIsSignUp(true);
         navigate('/');

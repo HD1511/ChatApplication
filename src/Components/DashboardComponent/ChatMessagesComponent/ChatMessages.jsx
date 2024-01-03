@@ -5,7 +5,7 @@ import '../ChatMessagesComponent/ChatMessages.css';
 import { UserDetailsContext } from '../Dashboard.jsx';
 import moment from 'moment';
 
-import axios from 'axios';
+import { getChatMessages, postChatMessages } from '../../../api/apiHandler.js';
 
 const ChatMessages = ({ showClickedChat }) => {
     const [newMessages, setNewMessages] = useState([]);
@@ -18,8 +18,8 @@ const ChatMessages = ({ showClickedChat }) => {
     useEffect(() => {
 
         const collectAllMessages = async () => {
-            const { data } = await axios.get(`${import.meta.env.VITE_BACKEND_URI}/api/chatMessages?chatId=${showClickedChat?._id}`);
-            setNewMessages(data.allChatMessages);
+            const { data } = await getChatMessages(showClickedChat);
+            setNewMessages(data.Data);
         }
 
         socketSetter?.on('chatMessageRecieve', async () => {
@@ -38,14 +38,9 @@ const ChatMessages = ({ showClickedChat }) => {
 
     const sendMessages = async () => {
 
-        const { data } = await axios.post(`${import.meta.env.VITE_BACKEND_URI}/api/chatMessages`, {
-            chatId: showClickedChat._id,
-            senderId: userDetails._id,
-            Message: message
-        });
+        const { data } = await postChatMessages(showClickedChat,userDetails);
 
         socketSetter.emit('Send-chat-message', anotherId);
-
 
         setMessage("");
         setClickOnSendMessage(!clickOnSendMessage);

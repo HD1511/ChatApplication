@@ -11,18 +11,18 @@ router.route('/signUp').post(logic.SignUp);
 
 router.route('/logout').get(logic.Logout);
 
-router.route('/searchUser').get(logic.Authentication,logic.SearchUser);
+router.route('/searchUser').get(logic.SearchUser);
 
-router.route('/chatMessages').post(logic.Authentication,logic.ChatMessages).get(logic.Authentication,logic.GetAllChatMessages);
+router.route('/chatMessages').post(logic.ChatMessages).get(logic.GetAllChatMessages);
 
-router.route('/pendingFriendRequestSender').get(logic.Authentication,logic.PendingFriendRequestSender);
+router.route('/pendingFriendRequestSender').get(logic.PendingFriendRequestSender);
 
-router.route('/pendingFriendRequestReciever').get(logic.Authentication,logic.PendingFriendRequestReciever);
+router.route('/pendingFriendRequestReciever').get(logic.PendingFriendRequestReciever);
 
-router.route('/pendingFriendRequestOver').get(logic.Authentication,logic.PendingFriendRequestOver);
+router.route('/pendingFriendRequestOver').get(logic.PendingFriendRequestOver);
 
-router.route('/friendRequestAccepted').post(logic.Authentication,logic.FriendRequestAccepted);
+router.route('/friendRequestAccepted').post(logic.FriendRequestAccepted);
 
-router.route('/getAllFriends').get(logic.Authentication,logic.GetAllFriends);
+router.route('/getAllFriends').get(logic.GetAllFriends);
 
 module.exports = router;

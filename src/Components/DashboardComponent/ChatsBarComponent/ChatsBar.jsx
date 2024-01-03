@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 
 import '../ChatsBarComponent/ChatsBar.css';
-import axios from 'axios';
 
 import SearchIcon from '@mui/icons-material/Search';
 import PersonIcon from '@mui/icons-material/Person';
 
 import { UserDetailsContext } from '../Dashboard.jsx';
 import FriendRequest from '../FriendRequstComponent/FriendRequest.jsx';
+import { getAllFriends, pendingFriendRequestReciever } from '../../../api/apiHandler.js';
 
 const ChatsBar = ({ onClickToOpenChats }) => {
     const [friendRequestClick, setFriendrequestClick] = useState(false);
@@ -19,16 +19,16 @@ const ChatsBar = ({ onClickToOpenChats }) => {
 
         const collectFriendRequestData = async () => {
 
-            const { data } = await axios.get(`${import.meta.env.VITE_BACKEND_URI}/api/pendingFriendRequestReciever?graberId=${userDetails?._id}`);
+            const { data } = await pendingFriendRequestReciever(userDetails);
+            setPendingRequestsCounter(data.Data?.length);
 
-            setPendingRequestsCounter(data.pendingFriendRequestData.length);
         }
 
         const collectAllFriends = async () => {
 
-            const { data } = await axios.get(`${import.meta.env.VITE_BACKEND_URI}/api/getAllFriends?id=${userDetails?._id}`);
-
-            setAllFriendsChats(data.allFriends);
+            const { data } = await getAllFriends(userDetails);
+            setAllFriendsChats(data.Data);
+            
         }
 
         socketSetter?.on('pendingRequests', async () => {
@@ -43,7 +43,7 @@ const ChatsBar = ({ onClickToOpenChats }) => {
         collectFriendRequestData();
         collectAllFriends();
 
-    }, [setPendingRequestsCounter, userDetails, friendRequestClick, setAllFriendsChats]);
+    }, [setPendingRequestsCounter,setAllFriendsChats,userDetails, friendRequestClick]);
 
     return (
         <>

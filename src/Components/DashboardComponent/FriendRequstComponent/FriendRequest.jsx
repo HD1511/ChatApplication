@@ -2,13 +2,12 @@ import React, { useContext, useEffect, useState } from 'react';
 
 import '../FriendRequstComponent/FriendRequest.css';
 
-import axios from 'axios';
-
 import CloseIcon from '@mui/icons-material/Close';
 import DoneIcon from '@mui/icons-material/Done';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import SearchIcon from '@mui/icons-material/Search';
 import { UserDetailsContext } from '../Dashboard';
+import { friendRequestAccepted, pendingFriendRequestOver, pendingFriendRequestReciever } from '../../../api/apiHandler.js';
 
 const FriendRequest = ({ isClicked }) => {
     const [pendingRequests, setPendingRequests] = useState([]);
@@ -19,9 +18,9 @@ const FriendRequest = ({ isClicked }) => {
 
         const collectFriendRequestData = async () => {
 
-            const { data } = await axios.get(`${import.meta.env.VITE_BACKEND_URI}/api/pendingFriendRequestReciever?graberId=${userDetails?._id}`);
-
-            setPendingRequests(data.pendingFriendRequestData);
+            const { data } = await pendingFriendRequestReciever(userDetails);
+            setPendingRequests(data.Data);
+            
         }
 
         socketSetter.on('pendingRequests', async () => {
@@ -35,21 +34,13 @@ const FriendRequest = ({ isClicked }) => {
     const judgePendingRequest = async (ele, status) => {
 
         if (status) {
-            const { data } = await axios.post(`${import.meta.env.VITE_BACKEND_URI}/api/friendRequestAccepted`, {
-                senderId: ele.senderId,
-                senderName: ele.senderName,
-                senderAvatar: ele.senderAvatar,
-                recieverId: userDetails._id,
-                recieverName: userDetails.Username,
-                recieverAvatar: userDetails.Avatar
-            });
 
-            console.log(ele.senderId);
-
+            const { data } = await friendRequestAccepted(ele,userDetails);
             socketSetter.emit('Update-user-list', ele.senderId);
+
         }
 
-        const {data} = await axios.get(`${import.meta.env.VITE_BACKEND_URI}/api/pendingFriendRequestOver?sId=${ele.senderId}&rId=${userDetails._id}`);
+        const {data} = await pendingFriendRequestOver(ele,userDetails);
         
         setStatusSetter(!statusSetter);
     }

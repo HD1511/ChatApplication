@@ -1,10 +1,11 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 
-import { Toaster, toast } from 'react-hot-toast';
-import axios from 'axios';
+import { Toaster } from 'react-hot-toast';
 
 import { UserContext } from '../App/App.jsx';
+import { ToastSuccess } from '../../utils/toast.js';
+import { authentication } from '../../api/apiHandler.js';
 import '../DashboardComponent/Dashboard.css';
 
 import TopBar from './TopBarComponent/TopBar.jsx';
@@ -29,25 +30,19 @@ const Dashboard = () => {
     
     useEffect(() => {
         const checkAuthenticatedOrNot = async () => {
-            const { data } = await axios.get(`${import.meta.env.VITE_BACKEND_URI}/api/authentication`, { withCredentials: true, headers: { Accept: 'application/json' } });
+            const { data } = await authentication();
             
-            setUserDetails(data.UserDetails);
+            setUserDetails(data.Data);
             
             if (data.Status === 'Success') {
                 
                 socket = io(import.meta.env.VITE_BACKEND_URI);
 
-                socket.emit('Update_UserList', data.UserDetails._id);
+                socket.emit('Update_UserList', data.Data?._id);
                 setSocketSetter(socket);
 
                 if (isLogIn) {
-                    toast.success("Log in successfully!!!", {
-                        style: {
-                            borderRadius: '10px',
-                            background: '#333',
-                            color: '#fff',
-                        },
-                    });
+                    ToastSuccess("Log in successfully!!!");
                     setIsLogIn(false);
                 }
             } else {

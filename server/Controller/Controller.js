@@ -9,7 +9,7 @@ const { ResponseHandler } = require('../utils/ResponseHandler.js');
 
 module.exports = {
 
-    Authentication: async (req, res) => {
+    Authentication: async (req, res, next) => {
         const { token } = req.cookies;
 
         try {
@@ -205,7 +205,7 @@ module.exports = {
             ResponseHandler(200, 'Success', "All friends grab successfully!!!", res, allFriends);
     
         } catch (e) {
-            ResponseHandler(200, 'Failed', "Internal sever error!!!", res, allFriends);
+            ResponseHandler(200, 'Failed', "Internal sever error!!!", res);
         }
     
     }

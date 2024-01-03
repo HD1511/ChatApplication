@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 
-import axios from 'axios';
-
 import '../SearchUserComponent/SearchUser.css';
 import { UserDetailsContext } from '../Dashboard.jsx';
 
@@ -10,6 +8,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CloseIcon from '@mui/icons-material/Close';
 
 import { Button } from 'primereact/button';
+import { pendingFriendRequestSender, searchUser } from '../../../api/apiHandler.js';
 
 const userNotSelectedToShowProfile = {
     display: 'flex',
@@ -27,9 +26,10 @@ const SearchUser = ({ isClicked }) => {
     useEffect(() => {
 
         const searchUsernameToFindUserInDB = async () => {
-            const { data } = await axios.get(`${import.meta.env.VITE_BACKEND_URI}/api/searchUser?usernameToFindUserInput=${usernameToFindUserInput}`);
 
-            setAllDataOfUser(data.allUserDetails);
+            const { data } = await searchUser(usernameToFindUserInput);
+            setAllDataOfUser(data.Data);
+            
         }
 
         searchUsernameToFindUserInDB();
@@ -44,7 +44,7 @@ const SearchUser = ({ isClicked }) => {
         
         const [senderId,recieverId,senderName,senderAvatar] = [userDetails?._id,clickUserData._id,userDetails?.Username,userDetails?.Avatar];
 
-        const {data} = await axios.get(`${import.meta.env.VITE_BACKEND_URI}/api/pendingFriendRequestSender?senderId=${senderId}&recieverId=${recieverId}&senderName=${senderName}&senderAvatar=${senderAvatar}`);
+        const {data} = await pendingFriendRequestSender(senderId,recieverId,senderName,senderAvatar);
 
         socketSetter.emit('Pending-request' , {senderId,recieverId,senderName,senderAvatar});
     }

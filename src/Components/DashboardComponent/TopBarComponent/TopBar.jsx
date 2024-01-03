@@ -1,7 +1,7 @@
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from "react-router-dom";
 
-import axios from 'axios';
+import { Logout } from '../../../api/apiHandler.js';
 
 import '../TopBarComponent/TopBar.css';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
@@ -13,9 +13,7 @@ const TopBar = () => {
 
         try {
 
-            const { data } = await axios.get(`${import.meta.env.VITE_BACKEND_URI}/api/logout`
-                , { withCredentials: true, headers: { Accept: 'application/json' } });
-            console.log(data);
+            const { data } = await Logout(); 
             navigate('/');
 
             window.location.reload();
