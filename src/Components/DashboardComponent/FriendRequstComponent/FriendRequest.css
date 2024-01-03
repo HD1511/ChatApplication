@@ -1,0 +1,87 @@
+.chatBar>.friendRequestCheck {
+    overflow-y: auto;
+    height: calc(83vh - 40px);
+    -ms-overflow-style: none;
+}
+
+.chatBar>.friendRequestCheck::-webkit-scrollbar {
+    width: 0 !important;
+}
+
+.chatBar>.friendRequestCheck>.backIconWrapper {
+    border-bottom: 1px solid #545b77;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    background-color: #dcecfc;
+}
+
+.chatBar>.friendRequestCheck>.backIconWrapper>input{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.chatBar>.friendRequestCheck>.backIconWrapper>input::placeholder{
+    color: #374259;
+}
+
+.chatBar>.friendRequestCheck>.backIconWrapper :is(.backIcon , .searchIcon) {
+    font-size: 1.9rem;
+    cursor: pointer;
+    color: #545b77;
+}
+
+.chatBar>.friendRequestCheck>.backIconWrapper>.searchFriend {
+    border: none;
+    outline: none;
+    padding-inline: 15px;
+    font-size: 1.1rem;
+    width: 80%;
+    background-color: #dcecfc;
+}
+
+.chatBar>.friendRequestCheck>.requests {
+    border: 1px solid rgb(209, 209, 209);
+    margin: 7px;
+    padding: 7px;
+    border-radius: 10px;
+    display: flex;
+    background-color: #545b77;
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+.chatBar>.friendRequestCheck>.requests>.img {
+    width: 50px;
+    height: 50px;
+    background-size: cover;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-left: 5px;
+}
+
+.chatBar>.friendRequestCheck>.requests>.name {
+    margin-left: 10px;
+    font-size: 1.2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.chatBar>.friendRequestCheck>.requests>.icons {
+    margin-left: auto;
+}
+
+.chatBar>.friendRequestCheck>.requests>.icons>div{
+    border-radius: 50%;
+    background-color: #DDE6ED;
+    padding: 3px 5px;
+    margin-inline: 5px;
+    display: inline-block;
+}
+
+.chatBar>.friendRequestCheck>.requests>.icons>div>.closeIcon,
+.chatBar>.friendRequestCheck>.requests>.icons>div>.doneIcon {
+    color: #545b77;
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+}

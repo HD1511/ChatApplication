@@ -1,0 +1,57 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.topBar{
+    width: 100%;
+    height: 10vh;
+    background-color: #374259;
+    display: flex;
+    align-items: center;
+}
+
+.topBar > ul {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    display: flex;
+}
+
+.topBar > ul > li{
+    list-style: none;
+    display: inline-block;
+}
+
+.topBar > ul > li:nth-child(2){
+    margin-left: auto;
+    margin-right: 15px;
+}
+
+.topBar > ul > .chatAppName{
+    font-family: Arial Unicode MS, 'lucida grande',tahoma,verdana,arial,sans-serif;
+    font-size: 2rem;
+    color: #DDE6ED;
+    margin-left: 30px;
+    align-self: center;
+    letter-spacing: 1px;
+    font-weight:bold;
+}
+
+.topBar > ul > .btn{
+    margin: 0px 5px;
+}
+
+.topBar > ul > .btn > button{
+    padding: 9px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    background-color: #9DB2BF;
+    color: #374259;
+    font-size: 1.05rem;
+}
+
+.topBar > ul > .btn > button > *{
+    font-size: 1.7rem;
+}

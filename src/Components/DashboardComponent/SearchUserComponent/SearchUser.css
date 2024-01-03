@@ -1,0 +1,145 @@
+.searchUser{
+    height: 83vh;
+    width: 100%;
+    margin: 0px 15px;
+    position: relative;
+}
+
+.searchUser > .inputWrapper{
+    width: 40%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    top: 10px;
+    background-color: #DDE6ED;
+    border-radius: 10px;
+    z-index: 2;
+}
+
+.searchUser > .inputWrapper > .backFromSearchIcon{
+    transform: translate(80%,0%);
+    color: #374259;
+    cursor: pointer;
+}
+
+.searchUser > .inputWrapper > .searchUserIcon{
+    color: #374259;
+    transform: translate(-50%,0%);
+    font-size: 1.7rem;
+    cursor: pointer;
+    margin-left: auto;
+    order: 2;
+}
+
+.searchUser >.inputWrapper > .searchUserInput{
+    background-color: transparent;
+    width: 86%;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    padding: 15px 20px 15px 40px;
+    font-size: 1rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #374259;
+}
+
+.searchUser > .allFindedUsers{
+    position: relative;
+    top: 20px;
+    width: 40%;
+    overflow-y: auto;
+    height: calc(83vh - 79.2px);
+    -ms-overflow-style: none;
+    margin-bottom: 15px;
+}
+
+.searchUser > .allFindedUsers::-webkit-scrollbar {
+    width: 0 !important;
+}
+
+.searchUser > .allFindedUsers > .chats {
+    width: 80%;
+    margin: auto;
+}
+
+.searchUser > .allFindedUsers > .chats > .details{
+    border: 1px solid rgb(209, 209, 209);
+    padding: 7px;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: aliceblue;
+    color: #374259;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.searchUser > .allFindedUsers > .chats > .details:hover {
+    background-color: #545b77;
+    color: white;
+}
+
+.searchUser > .allFindedUsers > .chats > .details > .name {
+    margin-left: 15px;
+    font-size: 1.2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.searchUser > .allFindedUsers > .chats > .details > .img {
+    width: 50px;
+    height: 50px;
+    background-size: cover;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-left: 10px;
+}
+
+.searchUser > .clickUserProfile{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    width: 58%;
+    height: 80vh;
+    background-color: #545b77;
+    border-radius: 10px;
+    top: 12px;
+    right: 0px;
+    color: white;
+    
+}
+
+.searchUser > .clickUserProfile > .closeIcon{
+    cursor: pointer;
+    font-size: 2rem;
+    align-self: flex-end;
+    margin: 10px;
+}
+
+.searchUser > .clickUserProfile > .avatarShower{
+    width: 150px;
+    height: 150px;
+    background-size: cover;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 50px auto 0px;
+}
+
+.searchUser > .clickUserProfile > .usernameShower{
+    align-self: center;
+    margin-top: 15px;
+    font-size: 1.7rem;
+}
+
+.searchUser > .clickUserProfile > .addFriend{
+    align-self: center;
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    /* width: 20%; */
+    padding: 10px;
+    font-size: 1.2rem;
+    background-color: aliceblue;
+    border-radius: 10px;
+    color: #545b77;
+    cursor: pointer;
+}

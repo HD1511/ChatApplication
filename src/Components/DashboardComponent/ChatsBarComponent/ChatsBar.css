@@ -1,0 +1,105 @@
+.chatBar {
+    width: 28%;
+    height: 83vh;
+    border-right: 1px solid #4f5671;
+    border-bottom: 1px solid black;
+}
+
+.chatBar > .inputWrapper {
+    position: relative;
+    height: calc(20px + 20px);
+    background-color: #dcecfc;
+}
+
+.chatBar > .inputWrapper > * {
+    position: absolute;
+}
+
+.chatBar > .inputWrapper > .chatInputs {
+    width: 75%;
+    transform: translate(17%, 0%);
+    padding: 7px 0px;
+    border-width: 1px;
+    outline: none;
+    border: none;
+    font-size: 1.01rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: #dcecfc;
+}
+
+.chatBar > .inputWrapper > .chatInputs::placeholder{
+    color: #374259;
+}
+
+.chatBar > .inputWrapper > .searchIcon {
+    transform: translate(25%, 30%);
+    cursor: pointer;
+}
+
+.chatBar > .inputWrapper > .addFriendIcon {
+    transform: translate(25%, 10%);
+    right: 4%;
+    cursor: pointer;
+}
+
+.chatBar > .inputWrapper > .friendCounter {
+    padding: 0px 3px;
+    border-radius: 50%;
+    transform: translate(50%, 10%);
+    right: 4%;
+    background-color: aliceblue;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 0.8rem;
+}
+
+.chatBar > .chatsWithFriends {
+    overflow-y: auto;
+    height: calc(83vh - 40px);
+    -ms-overflow-style: none;
+}
+
+.chatBar > .chatsWithFriends::-webkit-scrollbar {
+    width: 0 !important;
+}
+
+.chatBar > .chatsWithFriends > .chats {
+    border: 1px solid rgb(209, 209, 209);
+    margin: 7px;
+    padding: 7px;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    background-color: #DDE6ED;
+    color: #374259;
+}
+
+.chatBar > .chatsWithFriends > .chats:hover {
+    background-color: #4f5671;
+    color: white;
+}
+
+.chatBar > .chatsWithFriends > .chats > .img {
+    width: 50px;
+    height: 50px;
+    background-size: cover;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.chatBar > .chatsWithFriends > .chats > .messageWrapper {
+    margin-left: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.chatBar > .chatsWithFriends > .chats > .messageWrapper > .name {
+    font-size: 1.2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.chatBar > .chatsWithFriends > .chats > .messageWrapper > .messages {
+    margin-top: auto;
+    font-size: 1.1rem;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    opacity: 0.8;
+}
