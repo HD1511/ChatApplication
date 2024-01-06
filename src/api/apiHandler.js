@@ -53,7 +53,7 @@ export const pendingFriendRequestOver = async (ele,userDetails) => {
     return await axios.get(`${import.meta.env.VITE_BACKEND_URI}/api/pendingFriendRequestOver?sId=${ele.senderId}&rId=${userDetails._id}`);
 }
 
-export const postChatMessages = async (showClickedChat,userDetails) => {
+export const postChatMessages = async (showClickedChat,userDetails,message) => {
     return await axios.post(`${import.meta.env.VITE_BACKEND_URI}/api/chatMessages`, {
         chatId: showClickedChat._id,
         senderId: userDetails._id,

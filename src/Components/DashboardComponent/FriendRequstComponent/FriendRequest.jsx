@@ -25,9 +25,13 @@ const FriendRequest = ({ isClicked }) => {
 
         socketSetter.on('pendingRequests', async () => {
             collectFriendRequestData();
-        })
+        });
 
         collectFriendRequestData();
+
+        return () => {
+            socketSetter?.off('pendingRequests');
+        }
 
     }, [statusSetter]);
 

@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const Mongo = require('./Connection/mongoose.js');
+const morgan = require('morgan');
 const app = express();
 require('dotenv').config();
 
@@ -23,6 +24,7 @@ app.use(cors({
 }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+// app.use(morgan('tiny'));
 app.use(cookieParser());
 
 // code for real time chat application
@@ -79,10 +81,11 @@ io.on('connection', (socket) => {
     }
   })
 
-  socket.on('Send-chat-message', (recieverId) => {
-    if (UserList[recieverId]) {
-      for (let i = 0; i < UserList[recieverId].length; i++) {
-        io.to(UserList[recieverId][i]).emit('chatMessageRecieve');
+  socket.on('Send-chat-message', ({Data,anotherId}) => {
+    console.log('kh');
+    if (UserList[anotherId]) {
+      for (let i = 0; i < UserList[anotherId].length; i++) {
+        io.to(UserList[anotherId][i]).emit('chatMessageRecieve',Data);
       }
     }
   })

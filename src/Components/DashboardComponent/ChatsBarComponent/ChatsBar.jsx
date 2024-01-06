@@ -29,19 +29,23 @@ const ChatsBar = ({ onClickToOpenChats }) => {
             const { data } = await getAllFriends(userDetails);
             setAllFriendsChats(data.Data);
             
-        }
+        };
 
         socketSetter?.on('pendingRequests', async () => {
             collectFriendRequestData();
-        })
+        });
 
         socketSetter?.on('updateUserList' , async () => {
             collectAllFriends();
-        })
-
+        });
 
         collectFriendRequestData();
         collectAllFriends();
+
+        return () => {
+            socketSetter?.off('pendingRequests');
+            socketSetter?.off('updateUserList');
+        }
 
     }, [setPendingRequestsCounter,setAllFriendsChats,userDetails, friendRequestClick]);
 

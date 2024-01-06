@@ -113,7 +113,7 @@ module.exports = {
             const insertMessage = new ChatMessages({ chatId, senderId, Message });
             await ChatMessages.insertMany([insertMessage]);
 
-            ResponseHandler(200, 'Success', "Message send successfully!!!", res);
+            ResponseHandler(200, 'Success', "Message send successfully!!!", res, insertMessage);
 
         } catch (e) {
             ResponseHandler(200, 'Failed', "Internal sever error!!!", res);

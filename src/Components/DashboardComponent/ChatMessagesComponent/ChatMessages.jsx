@@ -10,7 +10,6 @@ import { getChatMessages, postChatMessages } from '../../../api/apiHandler.js';
 const ChatMessages = ({ showClickedChat }) => {
     const [newMessages, setNewMessages] = useState([]);
     const [message, setMessage] = useState("");
-    const [clickOnSendMessage, setClickOnSendMessage] = useState(false);
     const { userDetails, socketSetter } = useContext(UserDetailsContext);
     const myElementRef = useRef(null);
     const anotherId = showClickedChat?.senderId === userDetails?._id ? showClickedChat?.recieverId : showClickedChat?.senderId;
@@ -22,28 +21,40 @@ const ChatMessages = ({ showClickedChat }) => {
             setNewMessages(data.Data);
         }
 
-        socketSetter?.on('chatMessageRecieve', async () => {
-            collectAllMessages();
-        })
-
         collectAllMessages();
 
-    }, [setNewMessages, clickOnSendMessage, showClickedChat, socketSetter]);
+    },[showClickedChat]);
 
     useEffect(() => {
+
         myElementRef.current?.scrollIntoView({
             behavior: "smooth",
-        })
-    }, [newMessages])
+        });
+
+        socketSetter?.on('chatMessageRecieve', async (Data) => {
+            setNewMessages((prev) => {
+                return [...prev, Data];
+            });
+        });
+
+        return () => {
+            socketSetter?.off('chatMessageRecieve');
+        }
+
+    }, [newMessages]);
 
     const sendMessages = async () => {
 
-        const { data } = await postChatMessages(showClickedChat,userDetails);
+        const { data } = await postChatMessages(showClickedChat, userDetails, message);
+        const { Data } = data;
 
-        socketSetter.emit('Send-chat-message', anotherId);
+        setNewMessages((prev) => {
+            return [...prev, Data];
+        });
+
+        socketSetter.emit('Send-chat-message', { Data, anotherId });
 
         setMessage("");
-        setClickOnSendMessage(!clickOnSendMessage);
     };
 
     return (
